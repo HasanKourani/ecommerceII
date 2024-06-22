@@ -26,7 +26,7 @@
                  (strlen($row['description']) > 50 ? substr($row['description'], 0, 50) . '...' : $row['description']) . 
                "</p>
                <a href= 'item.php?id={$row['id']}' class='btn btn-primary'>View Car</a>
-               <a href='addtocart.php?id={$row['id']}' class='btn btn-primary m-2'>Add to cart <i class='fa-solid fa-cart-plus'></i></a>
+               <a href='addtowishlist.php?id={$row['id']}' class='btn btn-primary m-2'>Add to wishlist <i class='fa-solid fa-heart'></i></a>
              </div>
            </div>";
            

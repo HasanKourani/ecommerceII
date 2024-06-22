@@ -19,7 +19,7 @@
         $row = mysqli_fetch_array($result);
     }
 
-    $sql = "SELECT oi.*, c.carName FROM order_items oi JOIN cars c ON oi.item_id = c.id WHERE oi.order_id = $orderId";
+    $sql = "SELECT oi.*, c.* FROM order_items oi JOIN cars c ON oi.item_id = c.id WHERE oi.order_id = $orderId";
     $result1 = mysqli_query($link, $sql);
 ?>
 
@@ -47,27 +47,26 @@
                 <thead>
                     <tr class="table-primary">
                         <th>Car Name</th>
-                        <th>Quantity</th>
+                        <th>Car Photo</th>
+                        <th>Car Year</th>
+                        <th>Car Status</th>
                         <th>Price</th>
-                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php 
-                    $rowColor = 0;
                     $grandTotal = 0;
                     while ($row1 = mysqli_fetch_assoc($result1)){
-                        $rowClass = $rowColor % 2 == 0 ? 'table-success' : 'table-primary';
-                        $grandTotal += $row1['total'];
+                        $grandTotal += $row1['price'];
                     ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row1['carName']); ?></td>
-                            <td><?php echo htmlspecialchars($row1['quantity']); ?></td>
+                            <td><img src="image/<?php echo htmlspecialchars($row1['photo']); ?>" alt="Car photo" class="w-25 h-25"></td>
+                            <td><?php echo htmlspecialchars($row1['carYear']); ?></td>
+                            <td><?php echo htmlspecialchars($row1['carStatus']); ?></td>
                             <td>$<?php echo htmlspecialchars($row1['price']); ?></td>
-                            <td>$<?php echo htmlspecialchars($row1['total']); ?></td>
                         </tr>
-                    <?php 
-                $rowColor++; }; ?>
+                    <?php }; ?>
                 </tbody>
             </table>
             <h5 class="text-end">Grand Total: $<?php echo number_format($grandTotal, 2); ?></h5>

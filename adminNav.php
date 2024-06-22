@@ -9,7 +9,8 @@ require_once("adminAuth.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Car Dealership</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/17fed53362.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,6 +40,12 @@ require_once("adminAuth.php");
                     <a href="adminProducts.php" class="nav-link text-white">
                         <i class="fa-solid fa-list m-2"></i>
                         Products
+                    </a>
+                </li>
+                <li>
+                    <a href="soldProducts.php" class="nav-link text-white">
+                        <i class="fa-solid fa-dollar m-2"></i>
+                        Sold Products
                     </a>
                 </li>
                 <li>

@@ -1,0 +1,8 @@
+.ordersCard{
+    transition: 0.3s;
+}
+
+.ordersCard:hover{
+    background-color: #292b2c;
+    color: white;
+}

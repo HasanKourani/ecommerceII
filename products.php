@@ -2,9 +2,9 @@
 require_once("nav.php");
 require_once("config.php");
 
-$sql = "SELECT * FROM cars";
+$sql = "SELECT * FROM cars WHERE stock>0";
 if(isset($_GET['id']))
-$sql .= " WHERE model_id = {$_GET['id']}";
+$sql .= " and model_id = {$_GET['id']}";
 
 if(isset($_GET['txtSearch'])) {
   if(strlen($_GET['txtSearch']) >= 3){
@@ -47,7 +47,7 @@ $result = mysqli_query($link,$sql);
           "</p>
           <div class='d-flex align-items-center justify-content-evenly'>
             <a href= 'item.php?id={$row['id']}' class='btn btn-primary'>View Car</a>
-            <a href='addtocart.php?id={$row['id']}' class='btn btn-primary'>Add to cart <i class='fa-solid fa-cart-plus'></i></a>
+            <a href='addtowishlist.php?id={$row['id']}' class='btn btn-primary'>Add to wishlist <i class='fa-solid fa-heart'></i></a>
           </div>
         </div>
       </div>";

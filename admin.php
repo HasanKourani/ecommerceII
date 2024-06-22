@@ -5,14 +5,14 @@ require_once("adminNav.php");
 <div class="w-100 m-5">
 
     <?php 
-        $sales = "SELECT total FROM order_items";
+        $sales = "SELECT price FROM order_items";
         $salesResult = mysqli_query($link, $sales);
 
         $totalSales = 0;
 
 
         while($row = mysqli_fetch_array($salesResult)) {
-            $totalSales += $row['total'];
+            $totalSales += $row['price'];
         }
     ?>
     <div class="d-flex flex-wrap justify-content-around">
@@ -22,25 +22,27 @@ require_once("adminNav.php");
         </div>
 
         <?php
-            $orders = "SELECT * FROM orders";
-            $ordersResult = mysqli_query($link, $orders);
-            $totalOrders = mysqli_num_rows($ordersResult);
+            $stock = "SELECT SUM(stock) FROM cars";
+            $stockResult = mysqli_query($link, $stock);
+            $row = mysqli_fetch_assoc($stockResult);
+            $totalStock = $row['SUM(stock)'];
         ?>
 
         <div class="card p-5 fs-3 d-flex flex-column text-center text-bg-danger">
-            <h2 class="card-title">Total Orders</h2>
-            <p class="fw-bold"><?php echo $totalOrders ?></p>
+            <h2 class="card-title">Available units</h2>
+            <p class="fw-bold"><?php echo $totalStock ?></p>
         </div>
 
         <?php
-            $products = "SELECT * FROM cars";
-            $productsResult = mysqli_query($link, $products);
-            $totalCars = mysqli_num_rows($productsResult);
+            $unitsSold = "SELECT SUM(unitsSold) FROM cars";
+            $unitsSoldResult = mysqli_query($link, $unitsSold);
+            $row1 = mysqli_fetch_assoc(($unitsSoldResult));
+            $totalUnitsSold = $row1['SUM(unitsSold)'];
         ?>
 
         <div class="card p-5 fs-3 d-flex flex-column text-center text-bg-warning">
-            <h2 class="card-title">Total Cars</h2>
-            <p class="fw-bold"><?php echo $totalCars ?></p>
+            <h2 class="card-title">Sold Units</h2>
+            <p class="fw-bold"><?php echo $totalUnitsSold ?></p>
         </div>
     </div>
 
@@ -60,9 +62,9 @@ require_once("adminNav.php");
         <div class="card-body">
             <?php 
                 $latestOrders = "SELECT * FROM orders ORDER BY id DESC LIMIT 3";
-                $latestOrdersResult = mysqli_query($link, $latestOrders);
+                $lateststockResult = mysqli_query($link, $latestOrders);
 
-                while($row = mysqli_fetch_array($latestOrdersResult)){
+                while($row = mysqli_fetch_array($lateststockResult)){
             ?>
                     
                     <h4 class="card-title">Order Number: <?php echo htmlspecialchars($row['id']); ?></h4>

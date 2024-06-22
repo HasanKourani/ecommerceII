@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   $c_pwd=md5($pwd);
-  $query="SELECT * FROM clients WHERE roleAs='0' and email='$email' and password='$c_pwd'";
+  $query="SELECT * FROM clients WHERE roleAs='1' and email='$email' and password='$c_pwd'";
   $result=mysqli_query($link,$query);
 
   if(mysqli_num_rows($result)==1){
@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['roleAs'] = $row['roleAs'];
     $_SESSION['loggedin'] = true;
 
-    header("location:home.php");
+    header("location:admin.php");
   }
 
   else{
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   else{ $email=$pwd =" "; }
 
 ?>
-<form action="login.php" method="post">
+<form action="adminLogin.php" method="post">
   <div class="mb-3 mt-3">
   <label for="email" class="form-label">Email:</label>
   <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"
@@ -57,7 +57,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   </label>
   </div>
   <button type="submit" class="btn btn-primary">Log In</button>
-  <a href="register.php" class="btn btn-danger">Don't have an Account? Sign Up</a>
 </form>
 
 </div>

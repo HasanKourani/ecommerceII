@@ -16,18 +16,19 @@
              <h4 class='card-text'>BUYING PRICE: {$row['carPrice']}$</h4>
              <p class='card-title'><strong>Year:</strong> {$row['carYear']}</p>
              <p class='card-title'><strong>Status:</strong> {$row['carStatus']}</p>
-             <p class='card-title'><strong>GearBox Type:</strong> {$row['gearType']}</p>";
+             <p class='card-title'><strong>GearBox Type:</strong> {$row['gearType']}</p>
+             <p class='card-title'><strong>Stock:</strong> {$row['stock']}</p>";
              
              if($row['carStatus']=="Used"){
               echo "<p class='card-title'><strong>Distance Travelled:</strong> {$row['distance']}KM</p>";
               echo "<p class='card-title'><strong>Previous Owners:</strong> {$row['owners']}</p>";
              }
 
-      echo"
+          echo"
             <p class='card-text'>{$row['description']}</p>
             <div class='d-flex flex-row'>
-              <a href='addtocart.php?id={$row['id']}' class='btn btn-primary w-25 m-2'>Add to cart <i class='fa-solid fa-cart-plus'></i></a>
-              <a href='addtowishlist.php?id={$row['id']}'class='btn btn-primary w-25 m-2'>Add to wishlist <i class='fa-solid fa-heart'></i></a>
+              <a href='checkout.php?id={$row['id']}' class='btn btn-primary w-25 m-2'>BUY NOW</a>
+              <a href='rent.php?id={$row['id']}'class='btn btn-primary w-25 m-2'>RENT NOW</a>
             </div>
           </div>
         </div>";

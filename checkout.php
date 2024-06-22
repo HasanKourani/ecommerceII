@@ -5,7 +5,8 @@
     if(!isset($_SESSION['id']))
     header(("location:login.php"));
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST["submit"])){
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
         $fn = $_POST["fn"] ?? '';
         $ln = $_POST["ln"] ?? '';
         $client_id = $_SESSION['id'] ?? '';
@@ -15,36 +16,32 @@
         $zip = $_POST["zip"] ?? '';
         $country = $_POST["country"] ?? '';
         $phone = $_POST["phone"] ?? '';
-        if (isset($_SESSION['cartItems']) && !empty($_SESSION['cartItems'])) {
-            $cartItems = $_SESSION['cartItems'];
         
-            $sql = "INSERT INTO orders (firstName, lastName, email, shippingAddress, city, zip, country, phone)
-                    VALUES ('$fn', '$ln', '$email', '$shippingAdd', '$city', '$zip', '$country', '$phone')";
+        $sql = "INSERT INTO orders (firstName, lastName, email, shippingAddress, city, zip, country, phone)
+                VALUES ('$fn', '$ln', '$email', '$shippingAdd', '$city', '$zip', '$country', '$phone')";
+        mysqli_query($link, $sql);
+
+        $orderId = mysqli_insert_id($link);
+        $_SESSION['orderId'] = $orderId;
+
+        $query = "SELECT * FROM cars WHERE id = {$_GET['id']}";
+        $result = mysqli_query($link, $query);
+        $row = mysqli_fetch_array($result);
+
+            $itemId = $row['id'];
+            $price = $row['carPrice'];
+            $sql = "INSERT INTO order_items (order_id, item_id, price)
+                    VALUES ('$orderId', '$itemId', '$price')";
             mysqli_query($link, $sql);
 
-            $orderId=mysqli_insert_id($link);
-            $_SESSION['orderId'] = $orderId;
+        $sold = "UPDATE cars SET sold='1', stock=stock-1, unitsSold=unitsSold+1 
+        WHERE id={$_GET['id']} and stock>0";
+        mysqli_query($link, $sold);
 
-            foreach($cartItems as $item){
-                $itemId = $item['id'];
-                $quantity = $item['quantity'];
-                $price = $item['carPrice'];
-                $total = $item['total'];
-                $sql = "INSERT INTO order_items (order_id, item_id, quantity, price, total)
-                        VALUES ('$orderId', '$itemId', '$quantity', '$price', '$total')";
-                mysqli_query($link, $sql);
-            }
-
-            $clear = "DELETE FROM carts WHERE session_id='$sid'";
-            mysqli_query($link, $clear);
-
-            unset($_SESSION['cartItems']);
-
-            header("location:bill.php");
-        }        
+        header("location:bill.php");      
     }
 ?>
-<form action='checkout.php' method='post'>
+<form action='' method='post'>
     <div class='mb-3 mt-3'>
         <label for='fn' class='form-label'>First Name: *</label>
         <input type='text' name='fn' id='fn' class='form-control' placeholder="First Name" required>
