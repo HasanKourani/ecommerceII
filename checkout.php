@@ -16,9 +16,10 @@
         $zip = $_POST["zip"] ?? '';
         $country = $_POST["country"] ?? '';
         $phone = $_POST["phone"] ?? '';
+        $orderType = "Buy";
         
-        $sql = "INSERT INTO orders (firstName, lastName, email, shippingAddress, city, zip, country, phone)
-                VALUES ('$fn', '$ln', '$email', '$shippingAdd', '$city', '$zip', '$country', '$phone')";
+        $sql = "INSERT INTO orders (firstName, lastName, email, shippingAddress, city, zip, country, phone, orderType)
+                VALUES ('$fn', '$ln', '$email', '$shippingAdd', '$city', '$zip', '$country', '$phone', '$orderType')";
         mysqli_query($link, $sql);
 
         $orderId = mysqli_insert_id($link);

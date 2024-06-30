@@ -23,17 +23,11 @@ require_once("adminAuth.php");
                 <span class="fs-4">Admin Panel</span>
             </a>
             <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-auto justify-content-left">
                 <li class="nav-item">
                     <a href="admin.php" class="nav-link text-white">
                         <i class="fa fa-dashboard m-2"></i>
                         Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="orders.php" class="nav-link text-white">
-                        <i class="fa fa-calendar m-2"></i>
-                        Orders
                     </a>
                 </li>
                 <li>
@@ -43,9 +37,27 @@ require_once("adminAuth.php");
                     </a>
                 </li>
                 <li>
+                    <a href="models.php" class="nav-link text-white">
+                    <i class="fa-solid fa-car m-2"></i>
+                        Models
+                    </a>
+                </li>
+                <li>
+                    <a href="orders.php" class="nav-link text-white">
+                        <i class="fa fa-calendar m-2"></i>
+                        Orders
+                    </a>
+                </li>
+                <li>
                     <a href="soldProducts.php" class="nav-link text-white">
                         <i class="fa-solid fa-dollar m-2"></i>
-                        Sold Products
+                        Sold Cars
+                    </a>
+                </li>
+                <li>
+                    <a href="rentedProducts.php" class="nav-link text-white">
+                        <i class="fa-solid fa-r m-2"></i>
+                        Rented Cars
                     </a>
                 </li>
                 <li>

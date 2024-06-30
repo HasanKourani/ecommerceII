@@ -10,7 +10,7 @@
       </div>
       ";
 
-    $sql = "SELECT * FROM cars LIMIT 4";
+    $sql = "SELECT * FROM cars WHERE stock>0 LIMIT 4";
     $result = mysqli_query($link, $sql);
     echo"<h1>Featured Cars</h1>";
     echo "<div class='featured-cars d-flex justify-content-around align-items-center'>";
