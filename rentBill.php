@@ -7,7 +7,7 @@
     }
 
     if(!isset($_SESSION['orderId'])){
-        header('location:checkout.php');
+        header('location:products.php');
     }
 
     $orderId = $_SESSION['orderId'];

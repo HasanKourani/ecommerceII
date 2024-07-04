@@ -4,6 +4,9 @@
 
     require_once("nav.php");
 
+    if(!isset($_SESSION['id']))
+    header(("location:login.php"));
+
     $sql = "SELECT * FROM cars WHERE id={$_GET['id']}";
     $result=mysqli_query($link,$sql);
     $row= mysqli_fetch_array($result);

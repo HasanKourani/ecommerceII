@@ -63,6 +63,8 @@
                     }
                     ?>
                     </li>
+                    
+                    <li class='nav-item'><a href="customerSupport.php" class='nav-link'>Support<i class="fas fa-comment-dots ms-2"></i></a></li>
                 </ul>
                 <form class="d-flex align-items-center" method="get" action="products.php">
                     <a href="wishlist.php" class="me-4"><i class="fa-solid fa-heart"></i></a>

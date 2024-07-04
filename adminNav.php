@@ -66,6 +66,12 @@ require_once("adminAuth.php");
                         Customers
                     </a>
                 </li>
+                <li>
+                    <a href="messages.php" class="nav-link text-white">
+                        <i class="fas fa-comment-dots m-2"></i>
+                        Messages
+                    </a>
+                </li>
             </ul>
             <hr>
             <div class="dropdown">
