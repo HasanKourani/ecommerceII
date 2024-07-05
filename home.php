@@ -18,7 +18,7 @@
   
       echo "
            <div class='card text-bg-dark' style='width:300px; float:left; margin:5px;'>
-             <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='width:100%'>
+             <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='height:300px; object-fit:cover;'>
              <div class='card-body'>
                <h4 class='card-title'>{$row['carName']}</h4>
                <p class='card-text '>$ {$row['carPrice']}</p>
@@ -40,7 +40,7 @@
     while ($row1= mysqli_fetch_array($result1)){
       echo "
            <div class='card text-bg-dark' style='width:300px; float:left; margin:5px;'>
-             <img class='card-img-top'src='image/{$row1['modelPhoto']}' alt='Card image' style='width:100%'>
+             <img class='card-img-top'src='image/{$row1['modelPhoto']}' alt='Card image' style='height:200px; object-fit:cover;'>
              <div class='card-body'>
                <h4 class='card-title'>{$row1['modelName']}</h4>
                <a href= 'products.php?id={$row1['id']}' class='btn btn-primary'>View Models</a>

@@ -37,7 +37,7 @@ if(isset($_POST['submit'])){
 
 ?>
 <div class='container'>
-    <div class="d-flex flex-column justify-content-evenly" style="min-height: 600px;">
+    <div class="d-flex flex-column justify-content-evenly m-5" style="min-height: 600px;">
         <h2>Reply to <?php echo htmlspecialchars($row['first_name']), ' ', htmlspecialchars($row['last_name']) ?></h2>
 
         <form action="" method="post" class="d-flex flex-column justify-content-between" style="min-height: 320px;">
@@ -46,7 +46,7 @@ if(isset($_POST['submit'])){
                 <textarea name="message" id="message"
                 rows="8" cols="100" maxlength="2500"
                 style="resize: none; outline: none;"
-                required></textarea>
+                class="border border-0 rounded p-3 fs-4" required></textarea>
             </div>
             <button type="submit" class="align-self-start btn btn-primary fs-5 mt-5" name="submit">Reply</button>
         </form>

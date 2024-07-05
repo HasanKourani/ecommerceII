@@ -38,15 +38,15 @@ $result = mysqli_query($link,$sql);
   
       echo "
       <div class='card text-bg-dark' style='width:300px; float:left; margin:5px;'>
-        <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='width:100%'>
+        <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='height:300px; object-fit:cover;'>
         <div class='card-body'>
           <h4 class='card-title'>{$row['carName']}</h4>
           <p class='card-text '>$ {$row['carPrice']}</p>
           <p class='card-text'>" . 
             (strlen($row['description']) > 50 ? substr($row['description'], 0, 50) . '...' : $row['description']) . 
           "</p>
-          <div class='d-flex align-items-center justify-content-evenly'>
-            <a href= 'item.php?id={$row['id']}' class='btn btn-primary'>View Car</a>
+          <div class='d-flex align-items-center justify-content-start'>
+            <a href= 'item.php?id={$row['id']}' class='btn btn-primary me-3'>View Car</a>
             <a href='addtowishlist.php?id={$row['id']}' class='btn btn-primary'>Add to wishlist <i class='fa-solid fa-heart'></i></a>
           </div>
         </div>

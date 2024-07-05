@@ -10,7 +10,10 @@ $sql = "SELECT m.*, c.* FROM messages m JOIN clients c ON m.senderId = c.id WHER
 $result = mysqli_query($link, $sql);
 
 echo "<div class='w-100 m-5'>";
-echo "<h1 class='text-center mb-5 text-dark'>Your Messages</h1>";
+echo "<div class='d-flex flex-wrap justify-content-between align-items-center mb-5'>
+    <h2>Messages</h2>
+    <a href='userSendMessage.php' class='btn btn-primary fs-5'>Send a New Message</a>
+    </div>";
 echo "<div class='d-flex flex-wrap justify-content-around align-items-center mb-5'> ";
 
 while($row = mysqli_fetch_assoc($result)) {
@@ -27,8 +30,6 @@ while($row = mysqli_fetch_assoc($result)) {
 <?php } ?>
 
 </div>
-
-<p class='text-center'><a href='userSendMessage.php' class='btn btn-primary fs-4'>Send a New Message</a></p>
 
 <?php
 require_once("footer.php")
