@@ -25,48 +25,41 @@
                         <a class="nav-link" href="home.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Car Models</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Services</a>
                         <ul class="dropdown-menu">
-                            <a href="products.php" class='dropdown-item'>ALL CARS</a>
-                            <?php
-                            require_once("config.php");
-                            $sql = "SELECT * FROM car_models ORDER BY modelName";
-                            $result = mysqli_query($link, $sql);
-                            while ($row = mysqli_fetch_array($result)) {
-                                echo "<li><a class='dropdown-item' href='products.php?id={$row['id']}'>{$row['modelName']}</a></li>";
-                            }
-                            ?>
+                            <a href="productsForSale.php" class='dropdown-item'>BUY A CAR</a>
+                            <a href="productsForRent.php" class='dropdown-item'>RENT A CAR</a>
                         </ul>
                     </li>
                     <li>
-                    <?php
-                    if (isset($_SESSION['fn']) && isset($_SESSION['ln'])) {
-                        echo "
-                        <li class='nav-item dropdown'>
-                            <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown'>Welcome, {$_SESSION['fn']}</a>
-                            <ul class='dropdown-menu'>
-                                <li><a class='dropdown-item' href='profile.php'>Profile</a></li>
-                                <li><a class='dropdown-item' href='changePassword.php'>Change Password</a></li>
-                            </ul>
-                        </li>
-                        <li><a class='nav-link' href='logout.php'>Logout</a></li>";
-                    } else {
-                        echo "<li class='nav-item'>
-                            <a class='nav-link' href='register.php'>Register</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='login.php'>Login</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='adminLogin.php'>Admin</a>
-                        </li>";
-                    }
-                    ?>
+                        <?php
+                        if (isset($_SESSION['fn']) && isset($_SESSION['ln'])) {
+                            echo "
+                            <li class='nav-item dropdown'>
+                                <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown'>Welcome, {$_SESSION['fn']}</a>
+                                <ul class='dropdown-menu'>
+                                    <li><a class='dropdown-item' href='profile.php'>Profile</a></li>
+                                    <li><a class='dropdown-item' href='changePassword.php'>Change Password</a></li>
+                                    <li><a class='dropdown-item' href='deleteAccount.php?id={$_SESSION['id']}'>Delete Account</a></li>
+                                </ul>
+                            </li>
+                            <li><a class='nav-link' href='logout.php'>Logout</a></li>";
+                        } else {
+                            echo "<li class='nav-item'>
+                                <a class='nav-link' href='register.php'>Register</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='login.php'>Login</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='adminLogin.php'>Admin</a>
+                            </li>";
+                        }
+                        ?>
                     </li>
-                    
                     <li class='nav-item'><a href="customerSupport.php" class='nav-link'>Support<i class="fas fa-comment-dots ms-2"></i></a></li>
                 </ul>
-                <form class="d-flex align-items-center" method="get" action="products.php">
+                <form class="d-flex align-items-center" method="get" action="productsForSale.php">
                     <a href="wishlist.php" class="me-4"><i class="fa-solid fa-heart"></i></a>
                     <input class="form-control me-2" type="text" placeholder="Search" name="txtSearch">
                     <?php

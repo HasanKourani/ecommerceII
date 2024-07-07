@@ -19,7 +19,7 @@
         $row = mysqli_fetch_array($result);
     }
 
-    $sql = "SELECT oi.*, c.* FROM order_items oi JOIN cars c ON oi.item_id = c.id WHERE oi.order_id = $orderId";
+    $sql = "SELECT oi.*, c.* FROM order_items oi JOIN carsforsale c ON oi.item_id = c.id WHERE oi.order_id = $orderId";
     $result1 = mysqli_query($link, $sql);
 ?>
 

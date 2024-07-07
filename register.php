@@ -1,6 +1,9 @@
 <?php
-require_once("nav.php");
+
 require_once("config.php");
+require_once("nav.php");
+
+
 if(!isset($_POST['submit'])) {
   $create = "CREATE TABLE IF NOT EXISTS clients (
       id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

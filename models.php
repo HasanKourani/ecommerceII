@@ -1,6 +1,8 @@
 <?php
-require_once("adminNav.php");
+
 require_once("config.php");
+require_once("adminNav.php");
+
 
 $sql = "SELECT * FROM car_models";
 $result = mysqli_query($link, $sql);

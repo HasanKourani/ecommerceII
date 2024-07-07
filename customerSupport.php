@@ -1,6 +1,7 @@
 <?php
-require_once("nav.php");
+
 require_once("config.php");
+require_once("nav.php");
 
 if(!isset($_SESSION['id'])){
     header('location:login.php');

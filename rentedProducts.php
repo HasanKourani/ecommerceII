@@ -1,6 +1,7 @@
 <?php
-require_once("adminNav.php");
+
 require_once("config.php");
+require_once("adminNav.php");
 
 $sql = "SELECT ri.*, c.* FROM rent_items ri JOIN cars c ON ri.item_id = c.id WHERE rented=1";
 $result = mysqli_query($link, $sql);

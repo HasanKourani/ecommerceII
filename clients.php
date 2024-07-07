@@ -1,6 +1,7 @@
 <?php
-require_once("adminNav.php");
+
 require_once("config.php");
+require_once("adminNav.php");
 
 $query = "SELECT * FROM clients WHERE roleAs=0";
 $result = mysqli_query($link, $query);

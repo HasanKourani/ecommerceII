@@ -1,6 +1,7 @@
 <?php
-require_once("nav.php");
+
 require_once("config.php");
+require_once("nav.php");
 
 if(!isset($_SESSION['id'])){
     header('location:login.php');
@@ -11,27 +12,57 @@ if(isset($_POST['submit'])){
     $item_id = $_GET['id'];
     $review = $_POST['review'];
     $stars = $_POST['stars'];
+    $status = $_GET['status'];
 
-    $sql = "INSERT INTO reviews (item_id, user_id, review, stars) VALUES('$item_id', '$user_id', '$review', '$stars')";
-    mysqli_query($link, $sql);
+    if($status == 'sale') {
+      $sql = "INSERT INTO reviews (status, sale_item_id, rent_item_id, user_id, review, stars)
+              VALUES('$status', '$item_id', null, '$user_id', '$review', '$stars')";
+      mysqli_query($link, $sql);
 
-    if(mysqli_affected_rows($link)>0){
+      if(mysqli_affected_rows($link)>0){
+
         echo "<div class='w-100 m-2'>
         <div class='alert alert-success alert-dismissible'>
         <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
         <strong>Success!</strong> Review Sent.
-      </div>";
-      echo "<script>
-        setTimeout(function() {
-          window.location.href = 'item.php?id={$_GET['id']}';
-        }, 3000);
-      </script>";
+        </div>";
+        echo "<script>
+          setTimeout(function() {
+            window.location.href = 'itemsForSale.php?id={$_GET['id']}';
+          }, 1000);
+        </script>";
       } else {
         echo "<div class='w-100 m-2'>
         <div class='alert alert-primary alert-dismissible'>
           <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
           <strong>Error!</strong> No Review sent!
         </div>";
+      }
+
+    } elseif($status == 'rent') {
+      $sql = "INSERT INTO reviews (status, sale_item_id, rent_item_id, user_id, review, stars)
+              VALUES('$status', null, '$item_id', '$user_id', '$review', '$stars')";
+      mysqli_query($link, $sql);
+
+      if(mysqli_affected_rows($link)>0){
+
+        echo "<div class='w-100 m-2'>
+        <div class='alert alert-success alert-dismissible'>
+        <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+        <strong>Success!</strong> Review Sent.
+        </div>";
+        echo "<script>
+          setTimeout(function() {
+            window.location.href = 'itemsForRent.php?id={$_GET['id']}';
+          }, 3000);
+        </script>";
+      } else {
+        echo "<div class='w-100 m-2'>
+        <div class='alert alert-primary alert-dismissible'>
+          <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
+          <strong>Error!</strong> No Review sent!
+        </div>";
+      }
     }
 }
 

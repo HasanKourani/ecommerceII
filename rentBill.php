@@ -7,7 +7,7 @@
     }
 
     if(!isset($_SESSION['orderId'])){
-        header('location:products.php');
+        header('location:productsForSale.php');
     }
 
     $orderId = $_SESSION['orderId'];
@@ -19,7 +19,7 @@
         $row = mysqli_fetch_array($result);
     }
 
-    $sql = "SELECT ri.*, c.* FROM rent_items ri JOIN cars c ON ri.item_id = c.id WHERE ri.order_id = $orderId";
+    $sql = "SELECT ri.*, c.* FROM rent_items ri JOIN carsforrent c ON ri.item_id = c.id WHERE ri.order_id = $orderId";
     $result1 = mysqli_query($link, $sql);
 ?>
 
