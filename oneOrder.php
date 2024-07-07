@@ -27,7 +27,6 @@ echo "<div class='container'>";
         <p class="card-text"><strong>Order Date:</strong> <?php echo htmlspecialchars($row['orderType']); ?></p>
     </div>
     <?php if($row['orderType']=="Buy") { ?>
-        </div>
             <h2 class="card-title text-white m-3">Ordered Items:</h2>
             <div class="card bg-primary-subtle">
                 <table class="table table-striped">
@@ -42,7 +41,7 @@ echo "<div class='container'>";
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT oi.*, c.* FROM order_items oi JOIN cars c ON oi.item_id = c.id WHERE oi.order_id = $orderId";
+                        $sql = "SELECT oi.*, c.* FROM order_items oi JOIN carsforsale c ON oi.item_id = c.id WHERE oi.order_id = $orderId";
                         $result1 = mysqli_query($link, $sql);
                         $grandTotal = 0;
                         while($row1 = mysqli_fetch_assoc($result1)){
@@ -62,8 +61,6 @@ echo "<div class='container'>";
                 </table>
                 <h5 class="text-end">Grand Total: $<?php echo number_format($grandTotal, 2); ?></h5>
             </div>
-            <br>
-            <hr>
     <?php } else { ?>
         <h2 class="card-title text-white m-3">Ordered Items:</h2>
             <div class="card bg-primary-subtle">
@@ -80,7 +77,7 @@ echo "<div class='container'>";
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT ri.*, c.* FROM rent_items ri JOIN cars c ON ri.item_id = c.id WHERE ri.order_id = $orderId";
+                        $sql = "SELECT ri.*, c.* FROM rent_items ri JOIN carsforrent c ON ri.item_id = c.id WHERE ri.order_id = $orderId";
                         $result1 = mysqli_query($link, $sql);
                         while ($row1 = mysqli_fetch_assoc($result1)){
                         ?>

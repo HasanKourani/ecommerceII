@@ -33,7 +33,13 @@ require_once("adminAuth.php");
                 <li>
                     <a href="adminProducts.php" class="nav-link text-white">
                         <i class="fa-solid fa-list m-2"></i>
-                        Products
+                        Products For Sale
+                    </a>
+                </li>
+                <li>
+                    <a href="adminProductsRental.php" class="nav-link text-white">
+                        <i class="fa-solid fa-list m-2"></i>
+                        Products For Rental
                     </a>
                 </li>
                 <li>

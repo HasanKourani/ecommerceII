@@ -13,7 +13,7 @@
     $sql = "SELECT * FROM carsforsale WHERE stock>0 LIMIT 4";
     $result = mysqli_query($link, $sql);
     echo"<h1 class='mb-5 mt-2'>Featured Cars For Sale</h1>";
-    if(mysqli_num_rows($result)>1) {
+    if(mysqli_num_rows($result)>0) {
       echo "<div class='featured-cars d-flex justify-content-start align-items-center'>";
       while ($row= mysqli_fetch_array($result)){
     
@@ -42,7 +42,7 @@
     $sql2 = "SELECT * FROM carsforrent WHERE rented=0 LIMIT 4";
     $result2 = mysqli_query($link, $sql2);
     echo"<h1 class='mt-5 mb-5'>Featured Cars For Rent</h1>";
-    if(mysqli_num_rows($result2)>1){
+    if(mysqli_num_rows($result2)>0){
       echo "<div class='featured-cars d-flex justify-content-start align-items-center'>";
       while ($row2= mysqli_fetch_array($result2)){
     
@@ -70,7 +70,7 @@
     $sql1 = "SELECT * FROM car_models LIMIT 4";
     $result1 = mysqli_query($link, $sql1);
     echo "<h1 class='mt-5'>Featured Models</h1>";
-    if(mysqli_num_rows($result1)>1){
+    if(mysqli_num_rows($result1)>0){
       echo "<div class='featured-models d-flex justify-content-start align-items-center'>";
       
       while ($row1= mysqli_fetch_array($result1)){

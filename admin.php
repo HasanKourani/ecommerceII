@@ -22,27 +22,39 @@ require_once("adminNav.php");
         </div>
 
         <?php
-            $stock = "SELECT SUM(stock) FROM cars";
+            $stock = "SELECT SUM(stock) FROM carsforsale";
             $stockResult = mysqli_query($link, $stock);
             $row = mysqli_fetch_assoc($stockResult);
             $totalStock = $row['SUM(stock)'];
         ?>
 
         <div class="card p-5 fs-3 d-flex flex-column text-center text-bg-danger">
-            <h2 class="card-title">Available units</h2>
+            <h2 class="card-title">Available Cars For Sale</h2>
             <p class="fw-bold"><?php echo $totalStock ?></p>
         </div>
 
         <?php
-            $unitsSold = "SELECT SUM(unitsSold) FROM cars";
+            $unitsSold = "SELECT SUM(unitsSold) FROM carsforsale";
             $unitsSoldResult = mysqli_query($link, $unitsSold);
             $row1 = mysqli_fetch_assoc(($unitsSoldResult));
             $totalUnitsSold = $row1['SUM(unitsSold)'];
         ?>
 
         <div class="card p-5 fs-3 d-flex flex-column text-center text-bg-warning">
-            <h2 class="card-title">Sold Units</h2>
+            <h2 class="card-title">Sold Cars</h2>
             <p class="fw-bold"><?php echo $totalUnitsSold ?></p>
+        </div>
+
+        <?php
+            $unitsRented = "SELECT SUM(rented) FROM carsforrent";
+            $unitsRentedResult = mysqli_query($link, $unitsRented);
+            $row2 = mysqli_fetch_assoc(($unitsRentedResult));
+            $totalUnitsRented = $row2['SUM(rented)'];
+        ?>
+
+        <div class="card p-5 fs-3 d-flex flex-column text-center bg-warning-subtle">
+            <h2 class="card-title">Rented Cars</h2>
+            <p class="fw-bold"><?php echo $totalUnitsRented ?></p>
         </div>
     </div>
 

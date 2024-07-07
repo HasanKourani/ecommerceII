@@ -46,7 +46,7 @@
                         VALUES ('$orderId', '$itemId', '$duration', '$totalFee', '$finalDate')";
                 mysqli_query($link, $sql);
 
-            $rented = "UPDATE carsforrent SET rented=1, unitsRented=unitsRented+1 
+            $rented = "UPDATE carsforrent SET rented=1
             WHERE id={$_GET['id']}";
             mysqli_query($link, $rented);
 
