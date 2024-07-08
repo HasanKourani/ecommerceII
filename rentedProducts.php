@@ -16,11 +16,11 @@ $sql = "SELECT ri.*, c.* FROM rent_items ri JOIN carsforrent c ON ri.item_id = c
 $result = mysqli_query($link, $sql);
 echo "<div class='w-100 m-5'>";
 if(mysqli_num_rows($result) > 0){
-  echo "<h1 class='text-center text-dark mb-5'> Rented Cars </h1>";
-  echo "<div class='container d-flex flex-wrap justify-content-start align-items-center'>";
+  echo "<h1 class='text-start text-dark mb-5'> Rented Cars </h1>";
+  echo "<div class='d-flex flex-wrap justify-content-start align-items-center'>";
   while($row = mysqli_fetch_array($result)) {
       echo "
-      <div class='card m-2 p-2 bg-dark' style='width:300px;'>
+      <div class='card p-2 bg-dark' style='width:300px;'>
         <img class='card-img-top' src='image/{$row['photo']}' alt='Card image' style='height:300px; object-fit:cover;'>
         <div class='card-body'>
           <h4 class='card-title text-white'>{$row['carName']}</h4>
@@ -32,6 +32,12 @@ if(mysqli_num_rows($result) > 0){
             <input type='hidden' name='id' value='{$row['id']}'>
             <button type='submit' name='submit' class='btn btn-success mt-2'>Confirm Car Return</button>
           </form>";
+          } else {
+            echo"
+            <form action='' method='post'>
+              <input type='hidden' name='id' value='{$row['id']}'>
+              <button type='submit' name='submit' class='btn btn-success mt-2' disabled>Confirm Car Return</button>
+            </form>";
           }
       echo
       "</div>

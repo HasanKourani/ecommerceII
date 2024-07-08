@@ -34,7 +34,7 @@ $result = mysqli_query($link,$sql);
   ";
 } else {
   echo "<h1 class='mb-5'>Cars For Sale</h1>";
-  echo "<div class='featured-cars d-flex justify-content-start align-items-center flex-wrap'>";
+  echo "<div class='featured-cars d-flex justify-content-start align-items-center flex-wrap lg'>";
   while ($row= mysqli_fetch_array($result)){
 
     if($row['stock'] > 0) {
