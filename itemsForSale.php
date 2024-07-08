@@ -12,7 +12,7 @@
     if(mysqli_num_rows($result)==1){
         $row= mysqli_fetch_array($result);
           echo  
-            "<div class='card d-flex flex-row text-bg-dark flex-wrap'>
+            "<div class='card d-flex flex-row text-bg-dark'>
               <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='height:600px; width:600px; object-fit:cover;'>
                 <div class='card-body d-flex flex-column justify-content-around'>
                 <h1 class='card-title'>{$row['carName']}</h1>
