@@ -1,28 +1,34 @@
 <?php
-    require_once("config.php");
-    require_once("nav.php");
+    require_once"config.php";
+    require_once"nav.php";
     
     $sid=session_id();
     if(!isset($_SESSION['id']))
     header(("location:login.php"));
 
+    $sql = "SELECT * FROM carsforsale WHERE id={$_GET['id']}";
+    $result=mysqli_query($link,$sql);
+    $row1= mysqli_fetch_array($result);
+
+    $user = "SELECT * FROM clients WHERE id = {$_SESSION['id']}";
+    $userResult = mysqli_query($link, $user);
+    $row = mysqli_fetch_array($userResult);
+
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if(isset($_POST['termsCheckbox'])){
 
-            $fn = $_POST["fn"] ?? '';
-            $ln = $_POST["ln"] ?? '';
+            $fn = $row['first_name'];
+            $ln = $row['last_name'];
             $client_id = $_SESSION['id'] ?? '';
-            $email = $_POST["email"] ?? '';
-            $shippingAdd = $_POST["shippingAdd"] ?? '';
-            $city = $_POST["city"] ?? '';
-            $zip = $_POST["zip"] ?? '';
-            $country = $_POST["country"] ?? '';
-            $phone = $_POST["phone"] ?? '';
+            $email = $row['email'];
+            $city = $row['city'];
+            $country = $row['country'];
+            $phone = $row['phone'];
             $orderType = "Buy";
             
-            $sql = "INSERT INTO orders (firstName, lastName, email, shippingAddress, city, zip, country, phone, orderType)
-                    VALUES ('$fn', '$ln', '$email', '$shippingAdd', '$city', '$zip', '$country', '$phone', '$orderType')";
+            $sql = "INSERT INTO orders (userId, firstName, lastName, email, city, country, phone, orderType)
+                    VALUES ('$client_id', '$fn', '$ln', '$email', '$city', '$country', '$phone', '$orderType')";
             mysqli_query($link, $sql);
 
             $orderId = mysqli_insert_id($link);
@@ -38,8 +44,8 @@
                         VALUES ('$orderId', '$itemId', '$price')";
                 mysqli_query($link, $sql);
 
-            $sold = "UPDATE carsforsale SET sold='1', stock=stock-1, unitsSold=unitsSold+1 
-            WHERE id={$_GET['id']} and stock>0";
+            $sold = "UPDATE carsforsale SET sold='1' 
+            WHERE id={$_GET['id']}";
             mysqli_query($link, $sold);
 
             header("location:bill.php");      
@@ -52,48 +58,26 @@
         }
     }
 ?>
-<h1 class="mb-3">Payment Method:</h1>
-<div class="form-check d-flex align-items-center">
-  <input class="form-check-input" type="radio" name="pay" id="pay" checked>
-  <label class="form-check-label fs-4 ms-2" for="pay">
-    PAY ON DELIVERY
-  </label>
-</div>
-<h1 class="mt-5">Your Details</h1>
-
 <form action='' method='post'>
-    <div class='mb-3 mt-3'>
-        <label for='fn' class='form-label'>First Name: *</label>
-        <input type='text' name='fn' id='fn' class='form-control' placeholder="First Name" required>
+    <div class="d-flex flex-column justify-content-center align-items-center mb-5">
+        <img src="image/<?php echo htmlspecialchars($row1['photo']); ?>" alt="Car photo" class="w-50 h-50 rounded">
     </div>
-    <div class='mb-3 mt-3'>
-        <label for='ln' class='form-label'>Last Name: *</label>
-        <input type='text' name='ln' id='ln' class='form-control' placeholder="Last Name" required>
+    <div class="d-flex flex-column justify-content-between" style="min-height:20vh;">
+        <h1><?php echo htmlspecialchars($row1['carName']); ?></h1>
+        <h4>Car Year: <?php echo htmlspecialchars($row1['carYear']); ?></h4>
+        <div class="d-flex">
+            <h4>Car Price: $</h4>
+            <h4 id="dayFee"><?php echo htmlspecialchars($row1['carPrice']); ?></h4>
+        </div>
     </div>
-    <div class='mb-3 mt-3'>
-        <label for='email' class='form-label'>Email: *</label>
-        <input type='email' name='email' id='email' class='form-control' placeholder="example@gmail.com" required>
+    <h1 class="mt-5 mb-3">Payment Method:</h1>
+    <div class="form-check d-flex align-items-center mb-5">
+    <input class="form-check-input" type="radio" name="pay" id="pay" checked>
+    <label class="form-check-label fs-4 ms-2" for="pay">
+        PAY ON PICK UP
+    </label>
     </div>
-    <div class='mb-3 mt-3'>
-        <label for='shippingAdd' class='form-label'>Shipping Address: *</label>
-        <input type='text' name='shippingAdd' id='shippingAdd' class='form-control' placeholder="Neighborhood - Building - Floor" required>
-    </div>
-    <div class='mb-3 mt-3'>
-        <label for='city' class='form-label'>City: *</label>
-        <input type='text' name='city' id='city' class='form-control' placeholder="City" required>
-    </div>
-    <div class='mb-3 mt-3'>
-        <label for='zip' class='form-label'>Zip: </label>
-        <input type='text' name='zip' id='zip' class='form-control' placeholder="Example: 0000">
-    </div>
-    <div class='mb-3 mt-3'>
-        <label for='country' class='form-label'>Country: *</label>
-        <input type='text' name='country' id='country' class='form-control' placeholder="Country" required>
-    </div>
-    <div class='mb-3 mt-3'>
-        <label for='phone' class='form-label'>Phone: *</label>
-        <input type='number' name='phone' id='phone' class='form-control' placeholder="03 - 123 456" required>
-    </div>
+
     <h1>Terms And Policies</h1>
     <div class="form-check mb-3">
         <input class="form-check-input" type="checkbox" name="termsCheckbox" id="flexCheckDefault">

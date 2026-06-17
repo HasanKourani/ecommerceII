@@ -1,6 +1,6 @@
 <?php 
-    require_once("config.php");
-    require_once("nav.php");
+    require_once"config.php";
+    require_once"nav.php";
 
     if(!isset($_SESSION['id'])){
         header('location:login.php');
@@ -35,9 +35,7 @@
             <p class="card-text"><strong>First Name:</strong> <?php echo htmlspecialchars($row['firstName']); ?></p>
             <p class="card-text"><strong>Last Name:</strong> <?php echo htmlspecialchars($row['lastName']); ?></p>
             <p class="card-text"><strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?></p>
-            <p class="card-text"><strong>Shipping Address:</strong> <?php echo htmlspecialchars($row['shippingAddress']); ?></p>
             <p class="card-text"><strong>City:</strong> <?php echo htmlspecialchars($row['city']); ?></p>
-            <p class="card-text"><strong>Zip:</strong> <?php echo htmlspecialchars($row['zip']); ?></p>
             <p class="card-text"><strong>Country:</strong> <?php echo htmlspecialchars($row['country']); ?></p>
             <p class="card-text"><strong>Phone:</strong> <?php echo htmlspecialchars($row['phone']); ?></p>
             <p class="card-text"><strong>Order Date:</strong> <?php echo htmlspecialchars($row['orderDate']); ?></p>
@@ -62,7 +60,7 @@
                     ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row1['carName']); ?></td>
-                            <td><img src="image/<?php echo htmlspecialchars($row1['photo']); ?>" alt="Car photo" class="w-25 h-25"></td>
+                            <td><img src="image/<?php echo htmlspecialchars($row1['photo']); ?>" alt="Car photo" style="width:300px"></td>
                             <td><?php echo htmlspecialchars($row1['carYear']); ?></td>
                             <td><?php echo htmlspecialchars($row1['carStatus']); ?></td>
                             <td>$<?php echo htmlspecialchars($row1['price']); ?></td>

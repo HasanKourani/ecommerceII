@@ -1,8 +1,62 @@
 <?php
-    require_once("config.php");
-    require_once("nav.php");
+    require_once"config.php";
+    require_once"nav.php";
+
+    $models = "SELECT * FROM car_models";
+    $resultModels = mysqli_query($link, $models);
 
     echo "
+    <div onmouseover='displaySearch()' onmouseout='hideSearch()'>
+      <form method='get' action='allProducts.php'>
+        <div class='d-flex m-5 justify-content-center align-items-center'>
+          <input class='border border-0 p-3 fs-5 w-75' type='text' placeholder='Search for your car...'
+          name='txtSearch' style='outline:none;'>
+          <button class='border border-0 p-3 fs-5 w-25 text-bg-primary' type='submit'>SEARCH</button>
+        </div>
+      </form>
+        <div id='hidden' class='d-none'>
+          <form method='get' action='allProducts.php'>
+            <h3 class='text-center'>OR</h3>
+            <div class='d-flex m-5 justify-content-center align-items-center'>
+              <select name='model' class='border border-0 p-3 fs-5 w-25' style='outline:none; cursor:pointer;'>
+                <option selected>Models</option>";
+                while($model = mysqli_fetch_array($resultModels)) {
+              echo "
+                <option value='$model[id]'>$model[modelName]</option>";
+              }
+              echo"
+              </select>
+              <select name='condition' class='border border-0 p-3 fs-5 w-25' style='outline:none; cursor:pointer;'>
+                <option selected>Condition</option>
+                <option value='New'>New</option>
+                <option value='Used'>Used</option>
+              </select>
+              <select name='gear' class='border border-0 p-3 fs-5 w-25' style='outline:none; cursor:pointer;'>
+                <option selected>Gear</option>
+                <option value='Automatic'>Automatic</option>
+                <option value='Sequential'>Sequential</option>
+              </select>
+              <button class='border border-0 p-3 fs-5 w-25 text-bg-primary' type='submit' name='filteredSearch' value='car'>SEARCH</button>
+            </div>
+            <div class='d-flex flex-column m-5'>
+              <h4>Price</h4>
+              <div class='d-flex mb-3'>
+                <input type='number' name='from' id='from' placeholder='From' class='border border-0 p-3 me-4' style='outline:none; cursor:pointer;' required>
+                <input type='number' name='to' id='to' placeholder='To' class='border border-0 p-3' style='outline:none; cursor:pointer;'>
+              </div>
+              <h4>Year</h4>
+              <div class='d-flex mb-3'>
+                <input type='number' name='yearFrom' id='yearFrom' placeholder='From' class='border border-0 p-3 me-4' style='outline:none; cursor:pointer;' required>
+                <input type='number' name='yearTo' id='yearTo' placeholder='To' class='border border-0 p-3' style='outline:none; cursor:pointer;'>
+              </div>
+            </div>
+            <div class='d-flex justify-content-end align-items-center mb-3'>
+              <button class='border border-0 p-3 fs-5 text-bg-primary w-25' type='submit' name='filteredSearch'>SEARCH</button>
+              <button class='border border-0 p-3 fs-5 text-bg-primary w-25 ms-5' type='reset'>RESET</button>
+            </div>
+          </form>
+        </div>
+    </div>
       <div class='d-flex flex-column justify-content-around align-items-center text-white mb-5'
         style='background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(image/carousel1.jpg);
         width: 100%; height: 100vh; background-repeat: no-repeat; background-size: cover;'>
@@ -10,7 +64,7 @@
       </div>
       ";
 
-    $sql = "SELECT * FROM carsforsale WHERE stock>0 LIMIT 4";
+    $sql = "SELECT * FROM carsforsale WHERE sold=0 and booked=0 LIMIT 4";
     $result = mysqli_query($link, $sql);
     echo"<h1 class='mb-5 mt-2'>Featured Cars For Sale</h1>";
     if(mysqli_num_rows($result)>0) {
@@ -79,7 +133,7 @@
               <img class='card-img-top'src='image/{$row1['modelPhoto']}' alt='Card image' style='height:200px; object-fit:cover;'>
               <div class='card-body'>
                 <h4 class='card-title'>{$row1['modelName']}</h4>
-                <a href= 'productsForSale.php?id={$row1['id']}' class='btn btn-primary'>View Models</a>
+                <a href= 'allProducts.php?id={$row1['id']}' class='btn btn-primary'>View Models</a>
               </div>
             </div>";
       }
@@ -96,5 +150,14 @@
 <?php
 require_once("footer.php")
 ?>
+
+<script type='text/javascript'>
+  function displaySearch() {
+    document.getElementById('hidden').classList.remove('d-none');
+  }
+  function hideSearch() {
+    document.getElementById('hidden').classList.add('d-none');
+  }
+</script>
 </body>
 </html>

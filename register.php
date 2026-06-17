@@ -1,7 +1,7 @@
 <?php
 
-require_once("config.php");
-require_once("nav.php");
+require_once"config.php";
+require_once"nav.php";
 
 
 if(!isset($_POST['submit'])) {
@@ -11,7 +11,6 @@ if(!isset($_POST['submit'])) {
       password VARCHAR(255),
       first_name VARCHAR(255),
       last_name VARCHAR(255),
-      address VARCHAR(255),
       city VARCHAR(255),
       country VARCHAR(255),
       phone VARCHAR(255)
@@ -28,7 +27,6 @@ if(!isset($_POST['submit'])) {
   $cpwd = $_POST['cpswd']; 
   $fn = $_POST['fn'];
   $ln = $_POST['ln'];
-  $address = $_POST['address'];
   $city = $_POST['city'];
   $country = $_POST['country']; 
   $phone = $_POST['phone'];
@@ -49,8 +47,8 @@ if(!isset($_POST['submit'])) {
     </div>";
   } else {
     $hashedpwd=md5($pwd);
-    $query = "INSERT IGNORE INTO clients (email, password, first_name, last_name, address, city, country, phone)
-    VALUES ('$email', '$hashedpwd', '$fn', '$ln', '$address', '$city', '$country','$phone')";
+    $query = "INSERT IGNORE INTO clients (email, password, first_name, last_name, city, country, phone)
+    VALUES ('$email', '$hashedpwd', '$fn', '$ln', '$city', '$country','$phone')";
     $qresult = mysqli_query($link, $query);
     if($qresult){
       $_SESSION['id'] = mysqli_insert_id($link);
@@ -86,10 +84,6 @@ if(!isset($_POST['submit'])) {
     <div class="mb-3">
         <label for="ln" class="form-label">Last Name: *</label>
         <input type="text" class="form-control" id="ln" placeholder="Enter Last Name" name="ln" required>
-    </div>
-    <div class="mb-3">
-        <label for="address" class="form-label">Address:</label>
-        <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
     </div>
     <div class="mb-3">
         <label for="city" class="form-label">City:</label>

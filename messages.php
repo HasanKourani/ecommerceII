@@ -1,7 +1,7 @@
 <?php
 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 
 $sql = "SELECT m.*, c.* FROM messages m JOIN clients c ON m.senderId = c.id WHERE receiverId='$_SESSION[id]' ORDER BY dateSent DESC";

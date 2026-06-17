@@ -1,7 +1,7 @@
 <?php
 
-require_once("config.php");
-require_once("nav.php");
+require_once"config.php";
+require_once"nav.php";
 
 if(!isset($_SESSION['id'])){
     header('location:login.php');
@@ -69,7 +69,8 @@ if(isset($_POST['submit'])){
             <textarea name="message" id="message"
             rows="8" cols="100" maxlength="2500"
             style="resize: none; outline: none;"
-            class="border border-0 rounded p-3 fs-4" required></textarea>
+            class="border border-0 rounded p-3 fs-4"
+            required></textarea>
         </div>
         <button type="submit" class="align-self-start btn btn-primary fs-5 mt-5" name="submit">Send Message</button>
     </form>

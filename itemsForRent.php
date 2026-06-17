@@ -1,6 +1,6 @@
 <?php
-    require_once("config.php");
-    require_once("nav.php");
+    require_once"config.php";
+    require_once"nav.php";
     
     if(!isset($_GET['id']))
     header("location:home.php");
@@ -16,12 +16,10 @@
               <h1 class='card-title'>{$row['carName']}</h1>
               <p class='card-text '>Fee/Day: {$row['rentFee']}$</p>
               <p class='card-title'><strong>Year:</strong> {$row['carYear']}</p>
-              <p class='card-title'><strong>Status:</strong> {$row['carStatus']}</p>
-              <p class='card-title'><strong>GearBox Type:</strong> {$row['gearType']}</p>";
-              
-              if($row['carStatus']=="Used"){
-                echo "<p class='card-title'><strong>Distance Travelled:</strong> {$row['distance']}KM</p>";
-              }
+              <p class='card-title'><strong>GearBox Type:</strong> {$row['gearType']}</p>
+              <p class='card-title'><strong>Number of Seats:</strong> {$row['seats']}</p>
+              <p class='card-title'><strong>Fuel Type:</strong> {$row['fuelType']}</p>
+              <p class='card-title'><strong>Cylinders:</strong> {$row['cylinders']}</p>";
 
             echo"
               <p class='card-text'>{$row['description']}</p>
@@ -31,36 +29,42 @@
             </div>
           </div>";
 
-    $sql = "SELECT r.*, c.* FROM reviews r JOIN clients c ON r.user_id = c.id WHERE rent_item_id = {$_GET['id']} and status='rent'";
-    $result = mysqli_query($link, $sql);
-    
-    echo "<div class='d-flex flex-wrap justify-content-between align-items-center mt-5'>
-            <h2>Reviews</h2>
-            <a href='addReview.php?id={$_GET['id']}&status=rent' class='btn btn-primary fs-5'>Add a New Review</a>
-          </div>";
-    while($row1 = mysqli_fetch_array($result)) {
-      echo "
-          <div class='card mb-5 mt-5 p-4'>
-            <div class='card-header'>
-              <span class='d-flex align-items-center'>
-                <i class='fa fa-user fa-2x me-2'></i>
-                <div class='fw-bold fs-4'>{$row1['first_name']} {$row1['last_name']}</div>
-              </span>
-            </div>
-            <div class='card-body'>
-              <blockquote class='blockquote mb-0'>
-                <p>{$row1['review']}</p>";
-                $num_stars = $row1['stars'];
-                $star = "&#11088;";
-                $starsReview = str_repeat($star, $num_stars);
-                echo "
-                <footer class='footer'>{$starsReview}</footer>
-              </blockquote>
-            </div>
-          </div>
-      ";
-    }
+      $sql = "SELECT r.*, c.* FROM reviews r JOIN clients c ON r.user_id = c.id WHERE rent_item_id = {$_GET['id']} and status='rent'";
+      $result = mysqli_query($link, $sql);
       
+      echo "<div class='d-flex flex-wrap justify-content-between align-items-center mt-5'>
+              <h2>Reviews</h2>
+              <a href='addReview.php?id={$_GET['id']}&status=rent' class='btn btn-primary fs-5'>Add a New Review</a>
+            </div>";
+      if(mysqli_num_rows($result)){
+        while($row1 = mysqli_fetch_array($result)) {
+          echo "
+              <div class='card mb-5 mt-5 p-4'>
+                <div class='card-header'>
+                  <span class='d-flex align-items-center'>
+                    <i class='fa fa-user fa-2x me-2'></i>
+                    <div class='fw-bold fs-4'>{$row1['first_name']} {$row1['last_name']}</div>
+                  </span>
+                </div>
+                <div class='card-body'>
+                  <blockquote class='blockquote mb-0'>
+                    <p>{$row1['review']}</p>";
+                    $num_stars = $row1['stars'];
+                    $star = "&#11088;";
+                    $starsReview = str_repeat($star, $num_stars);
+                    echo "
+                    <footer class='footer'>{$starsReview}</footer>
+                  </blockquote>
+                </div>
+              </div>
+          ";
+        }
+      } else {
+        echo"
+        <div class='d-flex justify-content-center align-items-center'>
+          <h4 class='text-danger'>No reviews yet for this product</h4>
+        </div>";
+      }   
     } else {
       echo" <div class='alert alert-warning alert-dismissible'>
         <button type='button' class='btn-close' data-bs-dismiss='alert'></button>

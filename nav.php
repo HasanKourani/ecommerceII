@@ -20,9 +20,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav me-auto d-flex align-items-center">
+                <ul class="navbar-nav ms-auto me-auto d-flex align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="home.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="allProducts.php">All Cars</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Services</a>
@@ -31,6 +34,11 @@
                             <a href="productsForRent.php" class='dropdown-item'>RENT A CAR</a>
                         </ul>
                     </li>
+                    <li class='nav-item'><a href="customerSupport.php" class='nav-link'>Support<i class="fas fa-comment-dots ms-2"></i></a></li>
+                </ul>
+                    
+                <ul class='navbar-nav d-flex align-items-center'>
+                    <a href="wishlist.php" class="me-4"><i class="fa-solid fa-heart"></i></a>
                     <li>
                         <?php
                         if (isset($_SESSION['fn']) && isset($_SESSION['ln'])) {
@@ -40,7 +48,7 @@
                                 <ul class='dropdown-menu'>
                                     <li><a class='dropdown-item' href='profile.php'>Profile</a></li>
                                     <li><a class='dropdown-item' href='changePassword.php'>Change Password</a></li>
-                                    <li><a class='dropdown-item' href='deleteAccount.php?id={$_SESSION['id']}'>Delete Account</a></li>
+                                    <li><a class='dropdown-item' href='userOrders.php'>Orders History</a></li>
                                 </ul>
                             </li>
                             <li><a class='nav-link' href='logout.php'>Logout</a></li>";
@@ -50,26 +58,10 @@
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='login.php'>Login</a>
-                            </li>
-                            <li class='nav-item'>
-                                <a class='nav-link' href='adminLogin.php'>Admin</a>
                             </li>";
                         }
                         ?>
                     </li>
-                    <li class='nav-item'><a href="customerSupport.php" class='nav-link'>Support<i class="fas fa-comment-dots ms-2"></i></a></li>
-                </ul>
-                <form class="d-flex align-items-center" method="get" action="productsForSale.php">
-                    <a href="wishlist.php" class="me-4"><i class="fa-solid fa-heart"></i></a>
-                    <input class="form-control me-2" type="text" placeholder="Search" name="txtSearch">
-                    <?php
-                    if (isset($_GET['id'])) {
-                        echo "<input type='hidden' name='id' value='{$_GET['id']}'>";
-                    }
-                    ?>
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-                <ul class='navbar-nav'>
                 </ul>
             </div>
         </div>

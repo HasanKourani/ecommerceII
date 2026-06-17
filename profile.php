@@ -1,7 +1,7 @@
 <?php
 
-require_once("config.php");
-require_once("nav.php");
+require_once"config.php";
+require_once"nav.php";
 ?>
 
 <?php
@@ -9,12 +9,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email = $_SESSION['email'];   
   $fn = $_POST['fn'];
   $ln = $_POST['ln'];
-  $address = $_POST['address'];
   $city = $_POST['city'];
   $country = $_POST['country']; 
   $phone = $_POST['phone'];
 
-  $query="UPDATE clients SET first_name='$fn',last_name='$ln',address='$address',city='$city',
+  $query="UPDATE clients SET first_name='$fn',last_name='$ln',city='$city',
   country='$country',phone='$phone'
   WHERE id={$_SESSION['id']}";
     mysqli_query($link,$query);
@@ -39,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 else{
-  $email =  $pwd =  $cpwd =  $fn = $ln = $address = $city = $country =  $phone = " ";
+  $email =  $pwd =  $cpwd =  $fn = $ln = $city = $country =  $phone = " ";
 }
 $query="SELECT * FROM clients WHERE id = {$_SESSION['id']}";
 $result=mysqli_query($link,$query);
@@ -66,11 +65,6 @@ else{
     <label for="ln" class="form-label">Last Name:</label>
     <input type="text" class="form-control" id="ln" placeholder="Enter Last Name" name="ln" required
     value="<?php echo $row['last_name'];?>">
-  </div>
-  <div class="mb-3">
-    <label for="address" class="form-label">Address:</label>
-    <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address"
-    value="<?php echo $row['address'];?>">
   </div>
   <div class="mb-3">
     <label for="city" class="form-label">City:</label>

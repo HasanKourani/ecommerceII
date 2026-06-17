@@ -1,8 +1,47 @@
 <?php 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 ?>
 <div class="w-100 m-5">
+
+    <div class="d-flex justify-content-evenly align-items-center">
+
+        <div class="d-flex flex-column align-items-center">
+            <h2>SALE</h2>
+            <form method='get' action='soldProducts.php'>
+                <div class='d-flex m-5'>
+                <input class='border border-0 p-3 fs-5 w-75' type='text' placeholder='Search for sold car...'
+                name='txtSearch' style='outline:none;'>
+                <button class='border border-0 p-3 fs-5 text-bg-primary' type='submit'>SEARCH</button>
+                </div>
+            </form>
+            <form method='get' action='adminProducts.php'>
+                <div class='d-flex m-5'>
+                <input class='border border-0 p-3 fs-5 w-75' type='text' placeholder='Search for car...'
+                name='txtSearch' style='outline:none;'>
+                <button class='border border-0 p-3 fs-5 bg-primary-subtle' type='submit'>SEARCH</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="d-flex flex-column align-items-center">
+            <h2>RENTAL</h2>
+            <form method='get' action='rentedProducts.php'>
+                <div class='d-flex m-5'>
+                <input class='border border-0 p-3 fs-5 w-75' type='text' placeholder='Search for rented car...'
+                name='txtSearch' style='outline:none;'>
+                <button class='border border-0 p-3 fs-5 text-bg-primary' type='submit'>SEARCH</button>
+                </div>
+            </form>
+            <form method='get' action='adminProductsRental.php'>
+                <div class='d-flex m-5'>
+                <input class='border border-0 p-3 fs-5 w-75' type='text' placeholder='Search for car...'
+                name='txtSearch' style='outline:none;'>
+                <button class='border border-0 p-3 fs-5 bg-primary-subtle' type='submit'>SEARCH</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <?php 
         $sales = "SELECT price FROM order_items";
@@ -22,10 +61,9 @@ require_once("adminNav.php");
         </div>
 
         <?php
-            $stock = "SELECT SUM(stock) FROM carsforsale";
+            $stock = "SELECT * FROM carsforsale";
             $stockResult = mysqli_query($link, $stock);
-            $row = mysqli_fetch_assoc($stockResult);
-            $totalStock = $row['SUM(stock)'];
+            $totalStock = mysqli_num_rows($stockResult);
         ?>
 
         <div class="card p-5 fs-3 d-flex flex-column text-center text-bg-danger">
@@ -34,10 +72,10 @@ require_once("adminNav.php");
         </div>
 
         <?php
-            $unitsSold = "SELECT SUM(unitsSold) FROM carsforsale";
+            $unitsSold = "SELECT SUM(sold) FROM carsforsale";
             $unitsSoldResult = mysqli_query($link, $unitsSold);
-            $row1 = mysqli_fetch_assoc(($unitsSoldResult));
-            $totalUnitsSold = $row1['SUM(unitsSold)'];
+            $row1 = mysqli_fetch_assoc($unitsSoldResult);
+            $totalUnitsSold = $row1['SUM(sold)'];
         ?>
 
         <div class="card p-5 fs-3 d-flex flex-column text-center text-bg-warning">
@@ -48,7 +86,7 @@ require_once("adminNav.php");
         <?php
             $unitsRented = "SELECT SUM(rented) FROM carsforrent";
             $unitsRentedResult = mysqli_query($link, $unitsRented);
-            $row2 = mysqli_fetch_assoc(($unitsRentedResult));
+            $row2 = mysqli_fetch_assoc($unitsRentedResult);
             $totalUnitsRented = $row2['SUM(rented)'];
         ?>
 
@@ -74,9 +112,9 @@ require_once("adminNav.php");
         <div class="card-body">
             <?php 
                 $latestOrders = "SELECT * FROM orders ORDER BY id DESC LIMIT 3";
-                $lateststockResult = mysqli_query($link, $latestOrders);
+                $latestOrdersResult = mysqli_query($link, $latestOrders);
 
-                while($row = mysqli_fetch_array($lateststockResult)){
+                while($row = mysqli_fetch_array($latestOrdersResult)){
             ?>
                     
                     <h4 class="card-title">Order Number: <?php echo htmlspecialchars($row['id']); ?></h4>

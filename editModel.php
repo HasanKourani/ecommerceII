@@ -1,6 +1,6 @@
 <?php 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 if(!isset($_GET['id']))
 header("location:adminProducts.php");
@@ -24,7 +24,8 @@ if(isset($_POST['btnEdit'])) {
         $id = mysqli_insert_id($link);
         $a = explode('.', $_FILES['my_image']['name']);
         $ext = $a[count($a)-1];
-        $name = "$id.$ext";
+        $randomNumber = rand(100,9999);
+        $name = "IMG-$id-$randomNumber.$ext";
         $query = "UPDATE cars SET photo='$name'
                     WHERE id = {$_GET['id']}";
         mysqli_query($link, $query);
@@ -34,7 +35,7 @@ if(isset($_POST['btnEdit'])) {
         echo "<div class='w-100 m-2'>
         <div class='alert alert-success alert-dismissible'>
         <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-        <strong>Success!</strong> Car Details Updated.
+        <strong>Success!</strong> Car Model Updated.
       </div>";
       echo "<script>
         setTimeout(function() {

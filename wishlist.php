@@ -1,6 +1,6 @@
 <?php
-  require_once("config.php");
-  require_once("nav.php");
+  require_once"config.php";
+  require_once"nav.php";
   
   echo"<h1 class='text-bg-primary bg-gradient fw-bold text-center p-3'>YOUR WISHLIST</h1>";
 

@@ -1,6 +1,6 @@
 <?php 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 
 if(isset($_POST['btnAdd'])) { 
@@ -14,7 +14,8 @@ if(isset($_POST['btnAdd'])) {
         $id = mysqli_insert_id($link);
         $a = explode('.', $_FILES['my_image']['name']);
         $ext = $a[count($a)-1];
-        $name = "$id.$ext";
+        $randomNumber = rand(100,9999);
+        $name = "IMG-$id-$randomNumber.$ext";
         $query = "UPDATE car_models SET modelPhoto='$name'
                     WHERE id = $id";
         mysqli_query($link, $query);

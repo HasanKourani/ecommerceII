@@ -1,27 +1,31 @@
 <?php
     
-    require_once("config.php");
-    require_once("nav.php");
+    require_once"config.php";
+    require_once"nav.php";
 
     if(!isset($_GET['id']))
     header("location:home.php");
 
     
-    $query="SELECT * FROM carsforsale WHERE id ={$_GET['id']} and stock>0";
+    $query="SELECT * FROM carsforsale WHERE id ={$_GET['id']} and sold=0";
     $result=mysqli_query($link,$query);
     if(mysqli_num_rows($result)==1){
         $row= mysqli_fetch_array($result);
           echo  
             "<div class='card d-flex flex-row text-bg-dark'>
-              <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='height:600px; width:600px; object-fit:cover;'>
+              <img class='card-img-top'src='image/{$row['photo']}' alt='Card image' style='height:800px; width:600px; object-fit:cover;'>
                 <div class='card-body d-flex flex-column justify-content-around'>
                 <h1 class='card-title'>{$row['carName']}</h1>
                 <h4 class='card-text'>BUYING PRICE: {$row['carPrice']}$</h4>
+                <h4 class='card-title'>CarFax: {$row['carFaxNumber']}</h4>
                 <p class='card-title'><strong>Year:</strong> {$row['carYear']}</p>
                 <p class='card-title'><strong>Status:</strong> {$row['carStatus']}</p>
+                <p class='card-title'><strong>Color:</strong> {$row['color']}</p>
                 <p class='card-title'><strong>GearBox Type:</strong> {$row['gearType']}</p>
-                <p class='card-title'><strong>Stock:</strong> {$row['stock']}</p>";
-                
+                <p class='card-title'><strong>Number of Seats:</strong> {$row['seats']}</p>
+                <p class='card-title'><strong>Fuel Type:</strong> {$row['fuelType']}</p>
+                <p class='card-title'><strong>Cylinders:</strong> {$row['cylinders']}</p>";
+                  
                 if($row['carStatus']=="Used"){
                   echo "<p class='card-title'><strong>Distance Travelled:</strong> {$row['distance']}KM</p>";
                   echo "<p class='card-title'><strong>Previous Owners:</strong> {$row['owners']}</p>";
@@ -31,6 +35,7 @@
                 <p class='card-text'>{$row['description']}</p>
                 <div class='d-flex flex-row'>
                   <a href='checkout.php?id={$row['id']}' class='btn btn-primary w-25 m-2'>BUY NOW</a>
+                  <a href='book.php?id={$row['id']}' class='btn btn-primary w-25 m-2'>BOOK NOW</a>
                 </div>
               </div>
             </div>";

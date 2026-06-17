@@ -1,5 +1,5 @@
 <?php
-  require_once("config.php");
+  require_once"config.php";
   $_SESSION=array();
   session_destroy();
   header("location:home.php");

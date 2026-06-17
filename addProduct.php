@@ -1,6 +1,6 @@
 <?php
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 
 $query = "SELECT id, modelName FROM car_models";
@@ -17,22 +17,29 @@ if(isset($_POST['btnAdd'])) {
         $carPrice = $_POST['carPrice'];
         $carYear = $_POST['carYear'];
         $carStatus = $_POST['carStatus'];
+        $carFaxNumber = $_POST['carFax'];
+        $fuelType = $_POST['fuelType'];
+        $cylinders = $_POST['cylinders'];
+        $color = $_POST['color'];
+        $seats = $_POST['seats'];
         $owners = $_POST['owners'];
         $distance = $_POST['distance']; 
         $gearType = $_POST['gearType'];
-        $stock = $_POST['stock'];
         $model_id = $_POST['model_id'];
         $description = $_POST['description'];
 
-        $insert = "INSERT INTO carsforsale (carName, carPrice, carYear, carStatus, owners, distance, gearType, stock, photo, model_id, description)
-        VALUES ('$carName', '$carPrice', '$carYear', '$carStatus', '$owners', '$distance', '$gearType', '$stock', null, '$model_id', '$description')";
+        $insert = "INSERT INTO carsforsale (carName, carPrice, carYear, carStatus, carFaxNumber,
+        fuelType, cylinders, color, seats, owners, distance, gearType, photo, model_id, description)
+        VALUES ('$carName', '$carPrice', '$carYear', '$carStatus', '$carFaxNumber', '$fuelType',
+        '$cylinders', '$color', '$seats', '$owners', '$distance', '$gearType', null, '$model_id', '$description')";
         mysqli_query($link, $insert);
 
         if(isset($_FILES['my_image']) && $_FILES['my_image']['size'] > 0) {
             $id = mysqli_insert_id($link);
             $a = explode('.', $_FILES['my_image']['name']);
             $ext = $a[count($a)-1];
-            $name = "$id.$ext";
+            $randomNumber = rand(100,1000000);
+            $name = "IMG-$id-$randomNumber.$ext";
             $query = "UPDATE carsforsale SET photo='$name'
                         WHERE id  = $id";
             mysqli_query($link, $query);
@@ -54,21 +61,26 @@ if(isset($_POST['btnAdd'])) {
         $carName = $_POST['carName'];
         $rentFee = $_POST['rentFee'];
         $carYear = $_POST['carYear'];
-        $carStatus = $_POST['carStatus'];
-        $distance = $_POST['distance']; 
         $gearType = $_POST['gearType'];
+        $fuelType = $_POST['fuelType'];
+        $cylinders = $_POST['cylinders'];
+        $color = $_POST['color'];
+        $seats = $_POST['seats'];
         $model_id = $_POST['model_id'];
         $description = $_POST['description'];
 
-        $insert = "INSERT INTO carsforrent (carName, carYear, carStatus, rentFee, distance, gearType, photo, model_id, description)
-        VALUES ('$carName', '$carYear', '$carStatus', '$rentFee', '$distance', '$gearType', null, '$model_id', '$description')";
+        $insert = "INSERT INTO carsforrent (carName, carYear, rentFee, fuelType,
+        cylinders, color, seats, gearType, photo, model_id, description)
+        VALUES ('$carName', '$carYear', '$rentFee', '$fuelType', '$cylinders',
+        '$color', '$seats', '$gearType', null, '$model_id', '$description')";
         mysqli_query($link, $insert);
 
         if(isset($_FILES['my_image']) && $_FILES['my_image']['size'] > 0) {
             $id = mysqli_insert_id($link);
             $a = explode('.', $_FILES['my_image']['name']);
             $ext = $a[count($a)-1];
-            $name = "$id.$ext";
+            $randomNumber = rand(100,9999);
+            $name = "IMG-$id-$randomNumber.$ext";
             $query = "UPDATE carsforrent SET photo='$name'
                         WHERE id  = $id";
             mysqli_query($link, $query);
@@ -93,68 +105,89 @@ if(isset($_POST['btnAdd'])) {
 
     <form action="" method="post" enctype="multipart/form-data">
 
-        <div class="mb-3">
+        <div class="mb-4">
             <p class="fw-bold fs-5"><label>Insert Image:</label></p>
             <input type="file" name="my_image" class="btn btn-primary" required>
         </div>
 
-        <div class="mb-3 mt-3">
+        <div class="mb-4 mt-3">
             <label for="carName" class="form-label fw-bold fs-5">Car Name:</label>
             <input type="text" class="form-control" id="carName" placeholder="Enter Car Name" name="carName" required>
         </div>
         <?php if($_GET['status']=='sale') { ?>
-            <div class="mb-3">
+            <div class="mb-4">
                 <label for="carPrice" class="form-label fw-bold fs-5">Car Price:</label>
                 <input type="number" class="form-control" id="carPrice" placeholder="Car Price: in $" name="carPrice" required>
             </div>
         <?php } else { ?>
-            <div class="mb-3">
+            <div class="mb-4">
                 <label for="rentFee" class="form-label fw-bold fs-5">Rent Fee:</label>
                 <input type="number" class="form-control" id="rentFee" placeholder="Rent Fee: in $" name="rentFee" required>
             </div>
         <?php } ?>
 
-        <div class="mb-3">
+        <div class="mb-4">
             <label for="carYear" class="form-label fw-bold fs-5">Car Year:</label>
             <input type="number" class="form-control" id="carYear" placeholder="Car Year" name="carYear" required>
         </div>
-
-        <div class="mb-3">
-            <label for="carStatus" class="form-label fw-bold fs-5">Car Status:</label>
-            <select id="carStatus" name="carStatus" class="btn btn-primary">
-                <option value="New">New</option>
-                <option value="Used">Used</option>
-            </select>
-        </div>
-
+        
         <?php if($_GET['status']=='sale') { ?>
-            <div class="mb-3">
+            <div class="mb-4">
+                <label for="carStatus" class="form-label fw-bold fs-5">Car Status:</label>
+                <select id="carStatus" name="carStatus" class="btn btn-primary">
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
+                </select>
+            </div>
+            
+            <div class="mb-4">
                 <label for="owners" class="form-label fw-bold fs-5">Number of Previous Owners:</label>
                 <input type="number" class="form-control" id="owners" placeholder="Number of Previous Owners" name="owners">
             </div>
+
+            <div class="mb-4">
+                <label for="carFax" class="form-label fw-bold fs-5">Car Fax:</label>
+                <input type="text" class="form-control" id="carFax" placeholder="Car Fax:" name="carFax">
+            </div>
+
+            <div class="mb-4">
+                <label for="distance" class="form-label fw-bold fs-5">Distance Travelled:</label>
+                <input type="number" class="form-control" id="distance" placeholder="Distance Travelled: in KM" name="distance">
+            </div>
         <?php } ?>
 
-        <div class="mb-3">
-            <label for="distance" class="form-label fw-bold fs-5">Distance Travelled:</label>
-            <input type="number" class="form-control" id="distance" placeholder="Distance Travelled: in KM" name="distance">
-        </div>
-
-        <div class="mb-3">
+        <div class="mb-4">
             <label for="gearType" class="form-label fw-bold fs-5">Gear Type:</label>
             <select id="gearType" name="gearType" class="btn btn-primary">
                 <option value="Sequential">Sequential</option>
                 <option value="Automatic">Automatic</option>
             </select>
         </div>
-        
-        <?php if($_GET['status']=='sale') { ?>
-            <div class="mb-3">
-                <label for="stock" class="form-label fw-bold fs-5">Available in Stock:</label>
-                <input type="number" class="form-control" id="stock" placeholder="Available in Stock" name="stock" required>
-            </div>
-        <?php } ?>
 
-        <div class="mb-3">
+        <div class="mb-4">
+            <label for="fuelType" class="form-label fw-bold fs-5">Fuel Type:</label>
+            <select id="fuelType" name="fuelType" class="btn btn-primary">
+                <option value="Benzene">Benzene</option>
+                <option value="Diesel">Diesel</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="cylinders" class="form-label fw-bold fs-5">Cylinders:</label>
+            <input type="number" class="form-control" id="cylinders" placeholder="Cylinders" name="cylinders">
+        </div>
+
+        <div class="mb-4">
+            <label for="seats" class="form-label fw-bold fs-5">Seats:</label>
+            <input type="number" class="form-control" id="seats" placeholder="Seats" name="seats">
+        </div>
+
+        <div class="mb-4">
+            <label for="color" class="form-label fw-bold fs-5">Color:</label>
+            <input type="text" class="form-control" id="color" placeholder="Color" name="color">
+        </div>
+
+        <div class="mb-4">
             <label for="model_id" class="form-label fw-bold fs-5">Car Model:</label>
             <select id="model_id" name="model_id" class="form-select btn btn-primary" required>
                 <?php foreach ($carModels as $model): ?>
@@ -163,7 +196,7 @@ if(isset($_POST['btnAdd'])) {
             </select>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
             <p><label for="description" class="form-label fw-bold fs-5">Description:</label></p>
             <textarea name="description" id="description" rows="4" cols="100" maxlength="255" style="resize: none;"></textarea>
         </div>

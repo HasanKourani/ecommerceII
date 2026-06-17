@@ -1,5 +1,5 @@
 <?php 
-require_once("config.php");
+require_once"config.php";
 
 if(!isset($_GET['id']))
 header("location:adminProducts.php");
@@ -36,16 +36,21 @@ if(isset($_POST['btnEdit'])) {
         $carPrice = $_POST['carPrice'];
         $carYear = $_POST['carYear'];
         $carStatus = $_POST['carStatus'];
+        $carFaxNumber = $_POST['carFax'];
+        $fuelType = $_POST['fuelType'];
+        $cylinders = $_POST['cylinders'];
+        $color = $_POST['color'];
+        $seats = $_POST['seats'];
         $owners = $_POST['owners'];
         $distance = $_POST['distance']; 
         $gearType = $_POST['gearType'];
-        $stock = $_POST['stock'];
         $model_id = $_POST['model_id'];
         $description = $_POST['description'];
 
         $update = "UPDATE carsforsale SET carName='$carName', carYear='$carYear', 
-        carPrice='$carPrice', carStatus='$carStatus', owners='$owners',
-        distance='$distance', gearType='$gearType', stock='$stock', photo='{$row['photo']}',
+        carPrice='$carPrice', carStatus='$carStatus', carFaxNumber='$carFaxNumber',
+        owners='$owners', fuelType='$fuelType', cylinders='$cylinders', color='$color',
+        seats='$seats', distance='$distance', gearType='$gearType', photo='{$row['photo']}',
         model_id='$model_id', description='$description' WHERE id = {$_GET['id']}";
         mysqli_query($link, $update);
 
@@ -53,7 +58,8 @@ if(isset($_POST['btnEdit'])) {
             $id = mysqli_insert_id($link);
             $a = explode('.', $_FILES['my_image']['name']);
             $ext = $a[count($a)-1];
-            $name = "$id.$ext";
+            $randomNumber = rand(100,9999);
+            $name = "IMG-$id-$randomNumber.$ext";
             $query = "UPDATE carsforsale SET photo='$name'
                         WHERE id = {$_GET['id']}";
             mysqli_query($link, $query);
@@ -81,23 +87,26 @@ if(isset($_POST['btnEdit'])) {
         $carName = $_POST['carName'];
         $rentFee = $_POST['rentFee'];
         $carYear = $_POST['carYear'];
-        $carStatus = $_POST['carStatus'];
-        $distance = $_POST['distance']; 
         $gearType = $_POST['gearType'];
+        $fuelType = $_POST['fuelType'];
+        $cylinders = $_POST['cylinders'];
+        $color = $_POST['color'];
+        $seats = $_POST['seats'];
         $model_id = $_POST['model_id'];
         $description = $_POST['description'];
 
         $update = "UPDATE carsforrent SET carName='$carName', rentFee='$rentFee',
-        carYear='$carYear', carStatus='$carStatus', distance='$distance',
-        gearType='$gearType', photo='{$row['photo']}', model_id='$model_id',
-        description='$description' WHERE id = {$_GET['id']}";
+        carYear='$carYear', fuelType='$fuelType', cylinders='$cylinders',
+        color='$color', seats='$seats', gearType='$gearType', photo='{$row['photo']}',
+        model_id='$model_id', description='$description' WHERE id = {$_GET['id']}";
         mysqli_query($link, $update);
 
         if(isset($_FILES['my_image']) && $_FILES['my_image']['size'] > 0) {
             $id = mysqli_insert_id($link);
             $a = explode('.', $_FILES['my_image']['name']);
             $ext = $a[count($a)-1];
-            $name = "$id.$ext";
+            $randomNumber = rand(100,9999);
+            $name = "IMG-$id-$randomNumber.$ext";
             $query = "UPDATE carsforrent SET photo='$name'
                         WHERE id = {$_GET['id']}";
             mysqli_query($link, $query);
@@ -124,7 +133,7 @@ if(isset($_POST['btnEdit'])) {
     }
 }
 
-require_once("adminNav.php");
+require_once"adminNav.php";
 ?>
 <div class='w-100 m-5'>
 
@@ -164,35 +173,43 @@ require_once("adminNav.php");
             value="<?php echo $row['carYear'];?>">
         </div>
 
-        <div class="mb-3">
-            <label for="carStatus" class="form-label fw-bold fs-5">Car Status:</label>
-            <select id="carStatus" name="carStatus" class="btn btn-primary">
-                <?php 
-                    $status = array("New", "Used");
-                    foreach ($status as $value) {
-                        if($row["carStatus"] == $value)
-                            $s = "selected";
-                        else
-                            $s="";
-                        echo "<option value='$value' $s>$value</option>";
-                    }
-                ?>
-            </select>
-        </div>
 
         <?php if($_GET['status']=='sale') { ?>
+            <div class="mb-3">
+                <label for="carStatus" class="form-label fw-bold fs-5">Car Status:</label>
+                <select id="carStatus" name="carStatus" class="btn btn-primary">
+                    <?php 
+                        $status = array("New", "Used");
+                        foreach ($status as $value) {
+                            if($row["carStatus"] == $value)
+                                $s = "selected";
+                            else
+                                $s="";
+                            echo "<option value='$value' $s>$value</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            
             <div class="mb-3">
                 <label for="owners" class="form-label fw-bold fs-5">Number of Previous Owners:</label>
                 <input type="number" class="form-control" id="owners" placeholder="Number of Previous Owners" name="owners"
                 value="<?php echo $row['owners'];?>">
             </div>
-        <?php } ?>
 
-        <div class="mb-3">
-            <label for="distance" class="form-label fw-bold fs-5">Distance Travelled:</label>
-            <input type="number" class="form-control" id="distance" placeholder="Distance Travelled: in KM" name="distance"
-            value="<?php echo $row['distance'];?>">
-        </div>
+            <div class="mb-4">
+                <label for="carFax" class="form-label fw-bold fs-5">Car Fax:</label>
+                <input type="text" class="form-control" id="carFax" placeholder="Car Fax:" name="carFax"
+                value="<?php echo $row['carFaxNumber'];?>">
+            </div>
+
+            <div class="mb-3">
+                <label for="distance" class="form-label fw-bold fs-5">Distance Travelled:</label>
+                <input type="number" class="form-control" id="distance" placeholder="Distance Travelled: in KM" name="distance"
+                value="<?php echo $row['distance'];?>">
+            </div>
+        
+        <?php } ?>
 
         <div class="mb-3">
             <label for="gearType" class="form-label fw-bold fs-5">Gear Type:</label>
@@ -210,13 +227,39 @@ require_once("adminNav.php");
             </select>
         </div>
 
-        <?php if($_GET['status']=='sale') { ?>
-            <div class="mb-3">
-                <label for="stock" class="form-label fw-bold fs-5">Available in Stock:</label>
-                <input type="number" class="form-control" id="stock" placeholder="Available in Stock" name="stock"
-                value="<?php echo $row['stock'];?>">
-            </div>
-        <?php } ?>
+        <div class="mb-4">
+            <label for="fuelType" class="form-label fw-bold fs-5">Fuel Type:</label>
+            <select id="fuelType" name="fuelType" class="btn btn-primary">
+            <?php 
+                $status = array("Benzene", "Diesel");
+                foreach ($status as $value) {
+                    if($row["fuelType"] == $value)
+                        $s = "selected";
+                    else
+                        $s="";
+                    echo "<option value='$value' $s>$value</option>";
+                }
+            ?>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="cylinders" class="form-label fw-bold fs-5">Cylinders:</label>
+            <input type="number" class="form-control" id="cylinders" placeholder="Cylinders" name="cylinders"
+            value="<?php echo $row['cylinders'];?>">
+        </div>
+
+        <div class="mb-4">
+            <label for="seats" class="form-label fw-bold fs-5">Seats:</label>
+            <input type="number" class="form-control" id="seats" placeholder="Seats" name="seats"
+            value="<?php echo $row['seats'];?>">
+        </div>
+
+        <div class="mb-4">
+            <label for="color" class="form-label fw-bold fs-5">Color:</label>
+            <input type="text" class="form-control" id="color" placeholder="Color" name="color"
+            value="<?php echo $row['color'];?>">
+        </div>
 
         <div class="mb-3">
             <label for="model_id" class="form-label fw-bold fs-5">Car Model:</label>

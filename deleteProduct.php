@@ -1,5 +1,5 @@
 <?php
-require_once("config.php");
+require_once"config.php";
 
 if(!isset($_GET['id']))
 header("location:adminProducts.php");
@@ -14,6 +14,9 @@ if($_GET['status']=='sale'){
     $result2 = mysqli_query($link, $delete2);
     $result1 = mysqli_query($link, $delete1);
     $result = mysqli_query($link, $delete);
+    if($result){
+        header("location:adminProducts.php");
+    }
 
 } elseif($_GET['status']=='rent') {
     $delete = "DELETE FROM carsforrent WHERE id = {$_GET['id']}";
@@ -24,9 +27,8 @@ if($_GET['status']=='sale'){
     $result2 = mysqli_query($link, $delete2);
     $result1 = mysqli_query($link, $delete1);
     $result = mysqli_query($link, $delete);
-}
-
-if($result){
-    header("location:adminProducts.php");
+    if($result){
+        header("location:adminProductsRental.php");
+    }
 }
 ?>

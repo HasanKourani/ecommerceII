@@ -1,6 +1,6 @@
 <?php
-require_once("config.php");
-require_once("nav.php");
+require_once"config.php";
+require_once"nav.php";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email=$_POST['email'];

@@ -5,7 +5,6 @@
       <li class="nav-item"><a href="productsForSale.php" class="nav-link px-2 text-dark">Products</a></li>
       <li class="nav-item"><a href="tP.php" class="nav-link px-2 text-dark">Terms & Policies</a></li>
       <li class="nav-item"><a href="faq.php" class="nav-link px-2 text-dark">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-dark">About</a></li>
     </ul>
     <p class="text-center text-dark">© 2024 Company, Inc</p>
   </footer>

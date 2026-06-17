@@ -1,7 +1,7 @@
 <?php
 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 $sql = "SELECT * FROM carsforsale WHERE sold=1";
 $result = mysqli_query($link, $sql);
@@ -11,11 +11,10 @@ if(mysqli_num_rows($result) > 0){
   echo "<div class='d-flex flex-wrap justify-content-start align-items-center'>";
   while($row = mysqli_fetch_array($result)) {
       echo "
-      <div class='card p-2 bg-dark' style='width:300px;'>
+      <div class='card p-2 me-2 bg-dark' style='width:300px;'>
         <img class='card-img-top' src='image/{$row['photo']}' alt='Card image' style='height:300px; object-fit:cover;'>
         <div class='card-body'>
           <h4 class='card-title text-white'>{$row['carName']}</h4>
-          <h5 class='card-title text-white'>Units Sold: {$row['unitsSold']}</h5>
         </div>
       </div>";
   }
@@ -23,7 +22,7 @@ if(mysqli_num_rows($result) > 0){
 } else {
   echo"
   <div class='d-flex justify-content-center align-items-center'>
-    <h1 class='text-danger'>No Cars Sold</h1>
+    <h1 class='text-danger'>No Cars Sold Yet</h1>
   </div>";
 }
 echo "</div>";

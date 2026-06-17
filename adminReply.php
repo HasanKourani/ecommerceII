@@ -1,6 +1,6 @@
 <?php 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 $query = "SELECT m.*, c.* FROM messages m JOIN clients c ON m.senderId = c.id WHERE msgId={$_GET['id']}";
 $result = mysqli_query($link, $query);
@@ -44,7 +44,7 @@ if(isset($_POST['submit'])){
             <div class="d-flex flex-column justify-content-between">
                 <h4 class="mt-5">Message:</h4>
                 <textarea name="message" id="message"
-                rows="8" cols="100" maxlength="2500"
+                rows="8" cols="60" maxlength="2500"
                 style="resize: none; outline: none;"
                 class="border border-0 rounded p-3 fs-4" required></textarea>
             </div>

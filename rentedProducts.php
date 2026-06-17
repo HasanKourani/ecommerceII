@@ -1,7 +1,7 @@
 <?php
 
-require_once("config.php");
-require_once("adminNav.php");
+require_once"config.php";
+require_once"adminNav.php";
 
 if(isset($_POST['submit'])){
   $update = "UPDATE rent_items SET returned=1 WHERE item_id={$_POST['id']}";
@@ -20,11 +20,12 @@ if(mysqli_num_rows($result) > 0){
   echo "<div class='d-flex flex-wrap justify-content-start align-items-center'>";
   while($row = mysqli_fetch_array($result)) {
       echo "
-      <div class='card p-2 bg-dark' style='width:300px;'>
+      <div class='card p-2 me-2 bg-dark' style='width:300px;'>
         <img class='card-img-top' src='image/{$row['photo']}' alt='Card image' style='height:300px; object-fit:cover;'>
         <div class='card-body'>
           <h4 class='card-title text-white'>{$row['carName']}</h4>
           <h5 class='card-title text-white'>Rent Duration: {$row['duration']} Days</h5>
+          <h5 class='card-title text-white'>Rented From: {$row['startingDate']}</h5>
           <h5 class='card-title text-white'>Rented Until: {$row['finalDate']}</h5>";
           if($row['finalDate'] < date("Y-m-d")){
             echo"
@@ -34,10 +35,7 @@ if(mysqli_num_rows($result) > 0){
           </form>";
           } else {
             echo"
-            <form action='' method='post'>
-              <input type='hidden' name='id' value='{$row['id']}'>
-              <button type='submit' name='submit' class='btn btn-success mt-2' disabled>Confirm Car Return</button>
-            </form>";
+              <button type='submit' name='submit' class='btn btn-success mt-2' disabled>Confirm Car Return</button>";
           }
       echo
       "</div>
@@ -47,7 +45,7 @@ if(mysqli_num_rows($result) > 0){
 } else {
   echo"
   <div class='d-flex justify-content-center align-items-center'>
-    <h1 class='text-danger'>No Cars Rented</h1>
+    <h1 class='text-danger'>No Cars Rented Yet</h1>
   </div>";
 }
 echo "</div>";

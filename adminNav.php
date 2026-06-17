@@ -1,5 +1,5 @@
 <?php 
-require_once("config.php");
+require_once"config.php";
 require_once("adminAuth.php");
 ?>
 
@@ -64,6 +64,12 @@ require_once("adminAuth.php");
                     <a href="rentedProducts.php" class="nav-link text-white">
                         <i class="fa-solid fa-r m-2"></i>
                         Rented Cars
+                    </a>
+                </li>
+                <li>
+                    <a href="bookedProducts.php" class="nav-link text-white">
+                        <i class="fa fa-ticket m-2"></i>
+                        Booked Cars
                     </a>
                 </li>
                 <li>
